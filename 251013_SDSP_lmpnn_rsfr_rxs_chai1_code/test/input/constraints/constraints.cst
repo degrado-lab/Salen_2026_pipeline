@@ -1,9 +1,0 @@
-#wrote angles in order atoms were clicked in pymol
-#must convert angle values from degrees to radian
-
-AtomPair N2 1X C46 1X HARMONIC 2.3 0.2
-AtomPair C26 1X ZN1 1X HARMONIC 2.4 0.2
-AtomPair NE2 50A ZN1 1X HARMONIC 2.4 0.2
-
-Angle OG1 13A ND1 50A CE1 50A CIRCULARHARMONIC 2.370 .2
-Angle OG1 13A ND1 50A CG 50A CIRCULARHARMONIC 2.007 .2
