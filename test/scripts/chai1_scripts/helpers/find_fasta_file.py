@@ -22,7 +22,8 @@ def find_fasta_file(directory, search_string):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        sys.exit(1)
+        print("Usage: python find_fasta_file.py <directory> <search_string>")
+    sys.exit(1)
 
     input_directory = sys.argv[1]
     pdb_tag_id = sys.argv[2]

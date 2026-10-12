@@ -1,6 +1,9 @@
 import os
 import sys
 
+# NOTE: standalone utility. It is not called by the notebook or by any other
+# script in this pipeline; it is kept here for manual filename cleanup.
+
 def rename_pdb_files(directory):
   """Renames PDB files in a directory by removing the last underscore and everything after it.
 
@@ -18,7 +21,8 @@ def rename_pdb_files(directory):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        sys.exit(1)
+        print("Usage: python remove_tag.py <pdb_directory>")
+    sys.exit(1)
 
     input_directory = sys.argv[1]
     rename_pdb_files(input_directory)

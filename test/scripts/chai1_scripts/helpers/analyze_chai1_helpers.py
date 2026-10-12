@@ -1,8 +1,6 @@
 import os
 import shutil
 import numpy as np
-import subprocess
-import pandas as pd
 import csv
 from Bio.PDB import PDBParser, MMCIFParser, Superimposer
 from Bio.PDB.MMCIF2Dict import MMCIF2Dict
@@ -177,6 +175,10 @@ def analyze_subdirectory(directory):
 
             if rmsd_values and plddt_values and ptm_values and iptm_values:
 
+                # NOTE: the isinstance() filters below do not exclude NaN (NaN is a float),
+                # so a failed CIF/NPZ makes the corresponding mean NaN. This is the
+                # behaviour used for the published analysis and is left unchanged;
+                # swap in np.isfinite(value) if you want failures dropped instead.
                 # Ensure values are passed correctly
                 print(f"Calculating mean and std for RMSD values: {rmsd_values}")
                 avg_rmsd = safe_mean([value for value in rmsd_values if isinstance(value, (int, float))])

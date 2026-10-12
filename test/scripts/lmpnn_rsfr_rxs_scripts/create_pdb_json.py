@@ -20,7 +20,8 @@ def create_pdb_json(pdb_directory):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        sys.exit(1)
+        print("Usage: python create_pdb_json.py <pdb_directory>")
+    sys.exit(1)
 
     input_directory = sys.argv[1]
     create_pdb_json(input_directory)

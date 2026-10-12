@@ -21,6 +21,7 @@ def removed_packed_tag(directory):
 
 if __name__ == '__main__':
   if len(sys.argv) != 2: 
+    print("Usage: python remove_packed_tag.py <pdb_directory>")
     sys.exit(1)
   directory = sys.argv[1]
   removed_packed_tag(directory)

@@ -31,7 +31,8 @@ def pdb_tag(pdb_directory):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        sys.exit(1)
+        print("Usage: python pdb_tag.py <pdb_directory>")
+    sys.exit(1)
 
     input_directory = sys.argv[1]
     pdb_tag(input_directory)

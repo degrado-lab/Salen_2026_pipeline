@@ -1,8 +1,5 @@
 import sys
 import pandas as pd
-import os
-import shutil
-import csv
 """
 This script filters the output analysis csv from a lmpnn_rsfr pipeline run and extracts the rosetta model/structure predictions that pass the filters
 """
@@ -37,27 +34,6 @@ def filter_dataframe(df, cutoffs):
   # Apply combined filter to the dataframe
   return df[combined_filter]
 
-def find_file_with_string(directory, search_string):
-  """
-  Finds the first file in the given directory whose filename contains the specified string.
-
-  Args:
-      directory: The directory path to search in.
-      search_string: The string to search for in the filenames.
-
-  Returns:
-      The path to the first matching file, or None if no file is found.
-  """
-
-  for filename in os.listdir(directory):
-      if search_string in filename:  # Check if the filename contains the string
-          filepath = os.path.join(directory, filename)
-          if os.path.isfile(filepath):  # Ensure it's a file, not a directory
-              print(f"successful_file:{filepath}")
-              return filepath
-
-  return None  # No matching file found
-
 def filter_pdbs(df_csv_file, plddt_low, rmsd_high, charge_low, charge_high):
   """
   Sets up inputs for filter_dataframe function, runs filter_dataframe function, outputs filtered CSV
@@ -79,7 +55,10 @@ def filter_pdbs(df_csv_file, plddt_low, rmsd_high, charge_low, charge_high):
   filtered_df = filter_dataframe(pd_df.copy(), cutoffs)
   filtered_df_rounded = filtered_df.round(2)
 
-  # Export the rounded DataFrame to CSV
+  # Export the rounded DataFrame to CSV.
+  # NOTE: written to the current working directory, so run this from the
+  # directory where you want the filtered CSV (the notebook cds into
+  # output/analysis before calling it).
   filtered_df_rounded.to_csv('lmpnn_rsfr_rxs_analysis_filtered.csv', index=False)
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 from pathlib import Path
-import numpy as np
 import torch
 from chai_lab.chai1 import run_inference
 import sys
@@ -8,7 +7,7 @@ def run_chai1(fasta_path,output_dir):
     torch.cuda.empty_cache()
     fasta_path = Path(fasta_path)
     output_dir = Path(output_dir)
-    output_cif_paths = run_inference(
+    run_inference(
         fasta_file=fasta_path,
         output_dir=output_dir,
         # 'default' setup

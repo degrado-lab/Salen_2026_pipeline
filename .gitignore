@@ -1,0 +1,43 @@
+# macOS
+.DS_Store
+.AppleDouble
+._*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# SGE / cluster job output
+*.o[0-9]*
+*.e[0-9]*
+*.po[0-9]*
+*.pe[0-9]*
+test/output/wynton/*
+!test/output/wynton/.gitkeep
+test/output/ipynb_job_scripts/*.sh
+!test/output/ipynb_job_scripts/.gitkeep
+
+# Pipeline run products (regenerated on every run; keep the folders, not the contents)
+test/output/**/*.pdb
+test/output/**/*.cif
+test/output/**/*.npz
+test/output/**/*.fa
+test/output/**/*.fasta
+test/output/**/*.csv
+test/output/**/*.sc
+test/output/**/*.json
+test/output/**/*.txt
+temp_*.pdb
+mismatched_comparisons.txt
+
+# Model weights / large third-party downloads
+*.pt
+*.pth
+*.ckpt
+
+# Keep the directory placeholders
+!**/.gitkeep

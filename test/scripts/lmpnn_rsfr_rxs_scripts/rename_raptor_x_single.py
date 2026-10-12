@@ -11,7 +11,8 @@ def rename_raptor_x_single(directory):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        sys.exit(1)
+        print("Usage: python rename_raptor_x_single.py <prediction_directory>")
+    sys.exit(1)
 
     input_directory = sys.argv[1]
     rename_raptor_x_single(input_directory)

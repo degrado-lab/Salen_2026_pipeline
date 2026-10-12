@@ -1,6 +1,5 @@
 import sys
 import os
-from datetime import datetime
 import helpers.analyze_chai1_helpers as hp
 def main(chai1_input_fasta_dir, chai1_root_output_dir, rosetta_model_dir, run_analysis_dir):
     
@@ -28,7 +27,8 @@ def main(chai1_input_fasta_dir, chai1_root_output_dir, rosetta_model_dir, run_an
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: python main_script.py <target_designs_csv> <source_fasta_file_dir> <chai1_input_fasta_dir> <chai1_ligand_name> <chai1_ligand_smiles> <chai1_root_output_dir> <rosetta_model_dir>")
+        print("Usage: python analyze_chai1.py <chai1_input_fasta_dir> "
+              "<chai1_root_output_dir> <rosetta_model_dir> <run_analysis_dir>")
         sys.exit(1)
 
     chai1_input_fasta_dir = sys.argv[1] #you make this directory under input folder

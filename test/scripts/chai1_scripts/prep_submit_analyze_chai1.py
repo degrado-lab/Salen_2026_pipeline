@@ -49,7 +49,7 @@ def submit_chai1(chai1_run_input_fasta_dir, chai1_run_root_output_dir, wynton_ou
 #$ -t 1-{number_of_runs}
 
 export CUDA_VISIBLE_DEVICES=$SGE_GPU
-TRANSFORMERS_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
 
 conda activate Chai1
 fasta_tag=$SGE_TASK_ID  # Get the PDB tag from the task ID
@@ -79,7 +79,7 @@ def analyze_chai1(chai1_run_input_fasta_dir, chai1_run_root_output_dir, wynton_o
 #$ -t 1
 
 export CUDA_VISIBLE_DEVICES=$SGE_GPU
-TRANSFORMERS_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
 
 conda activate chai1_analysis
 fasta_tag=$SGE_TASK_ID  # Get the PDB tag from the task ID
@@ -88,7 +88,7 @@ fasta_basename=$(basename "$input_fasta")
 fasta_basename_no_ext="${{fasta_basename%.*}}"
 output_dir={chai1_run_root_output_dir}/$fasta_basename_no_ext
 
-python3 {chai1_scripts_path}/analyze_chai1.py {chai1_input_fasta_dir} {chai1_root_output_dir} {rosetta_model_dir} {run_analysis_dir}
+python3 {chai1_scripts_path}/analyze_chai1.py {chai1_run_input_fasta_dir} {chai1_run_root_output_dir} {rosetta_model_dir} {run_analysis_dir}
     '''
 
     with open(ipynb_job_script, 'w') as file:
@@ -99,7 +99,11 @@ python3 {chai1_scripts_path}/analyze_chai1.py {chai1_input_fasta_dir} {chai1_roo
 
 if __name__ == "__main__":
     if len(sys.argv) != 12:
-        print("Usage: python prep_chai1.py <target_designs_csv> <source_fasta_file_dir> <chai1_input_fasta_dir> <chai1_ligand_name> <chai1_ligand_smiles>")
+        print("Usage: python prep_submit_analyze_chai1.py <target_designs_csv> "
+              "<source_fasta_file_dir> <chai1_input_fasta_dir> <chai1_root_output_dir> "
+              "<chai1_ligand_name> <chai1_ligand_smiles> <ipynb_job_dir> "
+              "<chai1_scripts_path> <wynton_output_dir> <rosetta_model_dir> "
+              "<run_analysis_dir>")
         sys.exit(1)
 
     target_designs_csv = sys.argv[1] #designs you want chai1 to predict

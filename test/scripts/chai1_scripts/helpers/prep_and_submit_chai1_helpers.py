@@ -49,11 +49,14 @@ def chai1_modify_fasta_file(file_path, ligand_name, smiles_string):
         f.write(line2)
         f.write(f">ligand|name={ligand_name}\n")
         f.write(f"{smiles_string}\n")
-        print(f"Copied fasta file has been modified")
+        f.truncate()  # drop any leftover bytes if the new content is shorter
+        print("Copied fasta file has been modified")
 
 def prep_holo_fasta_files(csv_file, structure_pred_dir, output_dir, ligand_name, ligand_smiles):
     """
-    Extract fasta files based on given input CSV to output directory, limited to 100 rows after the header row.
+    Extract fasta files based on given input CSV to output directory, limited to the
+    first 100 data rows after the header row. The 100-design cap is deliberate (it
+    bounds the size of the Chai-1 array job); raise MAX_DESIGNS below to change it.
 
     Args:
         csv_file: The path to the CSV file containing design names.
@@ -70,11 +73,12 @@ def prep_holo_fasta_files(csv_file, structure_pred_dir, output_dir, ligand_name,
         next(reader, None)  # Uncomment this line if your CSV has a header row
 
         # Initialize a counter for the rows processed
+        MAX_DESIGNS = 100
         row_count = 0
 
-        # Iterate through each row, stopping after 100 rows
+        # Iterate through each row, stopping after MAX_DESIGNS rows
         for row in reader:
-            if row_count >= 100:
+            if row_count >= MAX_DESIGNS:
                 break
 
             # Access the design name
@@ -82,12 +86,19 @@ def prep_holo_fasta_files(csv_file, structure_pred_dir, output_dir, ligand_name,
             value = first_item.rsplit('_', 1)[0] + '.fasta'
             prediction_path = find_file_with_string(structure_pred_dir, value)
 
+            # Skip this design if no source fasta was found, otherwise the
+            # modify step below would fail on a file that was never copied.
+            if prediction_path is None:
+                print(f"No source fasta found for design {value}; skipping.")
+                continue
+
             # Copy the files with preserved permissions
             try:
                 shutil.copy2(prediction_path, output_dir)
                 print(f"Copied fasta file: {prediction_path}")
             except Exception as e:
                 print(f"Error copying files for design {value}: {e}")
+                continue
 
             copied_file_path = os.path.join(output_dir, value)
             chai1_modify_fasta_file(copied_file_path, ligand_name, ligand_smiles)

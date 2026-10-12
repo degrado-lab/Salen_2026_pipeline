@@ -53,7 +53,8 @@ def mpnn_out_to_single_file_fasta(pdb_directory, output_directory):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        sys.exit(1)
+        print("Usage: python mpnn_out_to_single_file_fasta.py <seqs_directory> <output_directory>")
+    sys.exit(1)
 
     input_directory = sys.argv[1]
     output_directory = sys.argv[2]
