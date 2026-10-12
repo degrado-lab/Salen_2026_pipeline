@@ -1,6 +1,6 @@
 # SDSP: Sequence Design / Structure Prediction pipeline
 
-An iterative enzyme active-site design pipeline that alternates fixed-backbone
+An iterative 'ligand-aware' design pipeline that alternates fixed-backbone
 sequence design with flexible-backbone relaxation, then validates the resulting
 designs with two independent structure predictors.
 
@@ -20,12 +20,12 @@ LigandMPNN  <->  Rosetta FastRelax        (3 rounds)
 Each design round expands the sequence pool: round 1 produces `init_num_seqs`
 sequences, round 2 produces `init_num_seqs^2`, round 3 `init_num_seqs^3`.
 After the final relaxation, designs are scored (pLDDT, Cα RMSD, net charge,
-ligand ΔSASA, Rosetta total score and packstat), filtered, and the survivors
+ligand ΔSASA, Rosetta total score and packstat), filtered, and the remaining
 are passed to Chai-1 for ligand-aware prediction.
 
 ## Important: this pipeline is cluster-specific
 
-The pipeline is driven from a Jupyter notebook that writes shell scripts and
+The pipeline is initiated from a Jupyter notebook that writes shell scripts and
 submits them to an **SGE / Grid Engine** scheduler with `qsub`. It was developed
 and run on UCSF's Wynton cluster, and the job scripts contain site-specific
 resource requests (`-q gpu.q`, `-l gpu_mem=8G`, `-l hostname=qb3-atgpu*`,
