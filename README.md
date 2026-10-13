@@ -203,7 +203,7 @@ MIT. See [LICENSE](LICENSE).
 
 Developed in the [DeGrado Lab](https://github.com/degrado-lab), UCSF.
 
-Pipeline scripts written by Ian Bakanas. Analysis script and adaptation to the
+Pipeline scripts initially written by Ian Bakanas. Analysis script and adaptation to the
 Jupyter notebook by Stephanie Ouchida.
 
 Third-party methods are the work of their respective authors; please cite
